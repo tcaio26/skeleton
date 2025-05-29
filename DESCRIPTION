@@ -1,0 +1,19 @@
+Package: skeleton
+Type: Package
+Title: Extracting Skeleton from a VLMC sample
+Version: 0.1.0
+Authors@R: c(
+    person(
+      "Caio", "Théodore",
+      email = "caio.theodore@proton.me",
+      role = c("aut", "cre")
+    )
+  )
+Description: [adding later]
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+Depends: 
+  data.tree
+RoxygenNote: 7.3.2
+Roxygen: list(markdown=TRUE)
