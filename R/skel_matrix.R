@@ -40,8 +40,8 @@ skel_matrix = function(tree){
   for(p in pasts){
     prob = matrix_df[matrix_df$exp_context==p,]$p
     p_cut = vec_to_string(string_to_vec(p)[2:nchar(p)])
-    m[p, paste0(p_cut,'0')] = prob
-    m[p, paste0(p_cut,'1')] = 1-prob
+    m[p, paste0(p_cut,'0')] = 1-prob
+    m[p, paste0(p_cut,'1')] = prob
   }
   m = ifelse(m>0, 1, m)
   return(m)

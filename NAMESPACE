@@ -2,6 +2,7 @@
 
 export(generate_skeleton)
 export(interval_check)
+export(irreductible)
 export(match_str)
 export(sculptskeleton)
 export(skel_matrix)
