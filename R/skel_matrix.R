@@ -20,7 +20,7 @@
 #'
 #' @export
 skel_matrix = function(tree){
-  df = ToDataFrameTree(tree, 'context','p')
+  df = ToDataFrameTree(tree, 'context','p', filterFun = isLeaf) #only leaves
 
   max_char = max(nchar(df$context))
   matrix_df = tibble(exp_context = character(0), context = character(0))
