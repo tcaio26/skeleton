@@ -7,7 +7,7 @@
 string_to_vec(string)
 }
 \arguments{
-\item{string}{}
+\item{string}{string comprised of positive integers, including 0. Other values won't work.}
 }
 \value{
 '101' returns c(1,0,1)

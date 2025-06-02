@@ -2,7 +2,7 @@
 #'
 #' @return '101' returns c(1,0,1)
 #'
-#' @param string
+#' @param string string comprised of positive integers, including 0. Other values won't work.
 #'
 #' @export
 

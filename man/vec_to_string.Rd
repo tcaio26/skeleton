@@ -7,7 +7,7 @@
 vec_to_string(vector)
 }
 \arguments{
-\item{vector}{}
+\item{vector}{vector of positive integers, including 0. Other values won't work.}
 }
 \value{
 c(1,0,1) returns '101'

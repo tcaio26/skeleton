@@ -2,7 +2,7 @@
 #'
 #' @return c(1,0,1) returns '101'
 #'
-#' @param vector
+#' @param vector vector of positive integers, including 0. Other values won't work.
 #'
 #' @export
 
