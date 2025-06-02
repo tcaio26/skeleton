@@ -1,15 +1,16 @@
 #' @title Tree generation
 #'
 #' @inheritParams startskel
-#' @param node node to generate from
-#' @param sample_vec,sample_txt different formats for the sample.
+#' @param node Node to generate from.
+#' @param sample_vec,sample_txt Different formats for the sample.
 #'
 #' @description
-#' Internal function to generate two nodes with context **0w** and **1w** from a node with context **w**, as long as
+#' Internal recursive function to generate two nodes with context **0w** and **1w** from a node with context **w**, as long as
 #' \eqn{n > N_{min}} and the empirical probability of 1 is not 0 or 1.
+#'
 #' Should not be used, only made for \link{startskel}.
 #'
-#' @noRd
+#' @keywords internal
 
 genskel = function(node, sample_vec, sample_txt, Nmin, prob = F){
   #resultado 0

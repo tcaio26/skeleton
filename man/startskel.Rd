@@ -18,5 +18,11 @@ Uncut suffix tree generated from the data as a \emph{data.tree} object.
 }
 \description{
 Function to initialize a probability tree. Is intended for \link{generate_skeleton}, but can be used on its own to check the data.
-Does not prune the tree at all.
+Does not prune the tree at all. For manual usage, do \link{startskel} -> \link{sculptskel} -> \link{skel_matrix}.
+}
+\examples{
+(t = startskel('01000110', Nmin = 1, TRUE))
+ToDataFrameTree(t, 'context', 'p', 'dom', 'n')
+
+
 }

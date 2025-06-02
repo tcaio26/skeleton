@@ -2,8 +2,8 @@
 #'
 #' @param sample Data. Either a string or a numeric vector. Should be longer than Nmin and only contain 0 and 1 symbols.
 #' @param Nmin A transition will only be considered "prohibited" (with probability 0) if the empirical probability is 0 after Nmin or more occurences.
-#' @param sensibility,alpha Alternatives to Nmin. If provided, \eqn{N_{min}=\log_{1-s}\alpha}where \eqn{s} is the sensibility. Both must be provided, see details for more.
-#' @param treeAsDataFrame should the tree output be the result of ToDataFrameTree()? If false, returns a data.tree object. Defaults to TRUE
+#' @param sensibility,alpha Alternatives to Nmin. If provided, \eqn{N_{min}=\log_{1-s}\alpha} where \eqn{s} is the sensibility. Both must be provided, see details for more.
+#' @param treeAsDataFrame Should the tree output be the result of ToDataFrameTree()? If false, returns a data.tree object. Defaults to TRUE.
 #' @param cleantree If set to TRUE (default), non-leaf nodes' probability, dom, and context are emptied.
 #' @param silent If TRUE, no progress messages are printed.
 #'
@@ -15,11 +15,14 @@
 #'  - *n* number of occurences in the sample
 #'  - *dom* internal parameter to identify prohibited transitions. -1 if \eqn{p=0}, 1 if \eqn{p=1}, 0 if \eqn{p\in(0,1)}
 #'
-#' A **Skeleton Matrix**, determining which transitions have a postive probability. See \link{skel_matrix} for more details.
+#' A \eqn{2^k\times 2^k}**Skeleton Matrix**, determining which transitions have a postive probability, where \eqn{k} is the order of the skeleton. See \link{skel_matrix} for more details.
 #'
 #' @details
 #' Since it is impossible to determine empirically that a probability is 0, a cutoff needs to be specified. Nmin is a simple but arbitrary way of doing it.
 #' Sensibility and alpha: Probabilities greater or equal to *sensibility* will be detected, at a *alpha* confidence level.
+#' Requirements: \eqn{\alpha, s \in (0,0.5]}
+#'
+#' Alternatively, \deqn{Y\sim Binom(N_{min},s)\Rightarrow P[Y=0]\leq \alpha}
 #'
 #' @export
 
@@ -33,8 +36,8 @@ generate_skeleton = function(sample, Nmin=59, sensibility, alpha, asDataFrameTre
   if(!all(unique(sample)%in%c(0,1))) stop("Sample must be comprised of 0 and 1 values")
   if(length(sample)<2) stop("Sample must be at least 2 symbols long")
 
-  if(!(missing(alpha)||(is.double(alpha) && interval_check(alpha,0,1)))) stop("alpha must be a numeric value between 0 and 1")
-  if(!(missing(sensibility)||(is.double(sensibility) && interval_check(sensibility,0,0.5)))) stop("sensibility must be a numeric value between 0 and 0.5")
+  if(!(missing(alpha)||(is.double(alpha) && interval_check(alpha,0,0.5, inc.U=T)))) stop("alpha must be a numeric value between 0 and 0.5")
+  if(!(missing(sensibility)||(is.double(sensibility) && interval_check(sensibility,0,0.5, inc.U=T)))) stop("sensibility must be a numeric value between 0 and 0.5")
   if(!(missing(Nmin)||(is.numeric(Nmin) && Nmin>0))) stop("Nmin must be a positive integer")
 
   if(all(missing(sensibility), missing(alpha), missing(Nmin))){

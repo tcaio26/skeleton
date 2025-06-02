@@ -1,8 +1,15 @@
-#' @title Converting binary numeric vector to binary string
+#' @title Converting integer numeric vector to binary string.
 #'
-#' @return c(1,0,1) returns '101'
+#' @return String of numeric characters.
 #'
-#' @param vector vector of positive integers, including 0. Other values won't work.
+#' @description
+#' Efficient function made for the skeleton package, might be useful for other cases.
+#'
+#' @examples
+#' vec_to_string(c(0,1,1,0))
+#'
+#'
+#' @param vector Vector of positive integers, including 0. Other values won't work.
 #'
 #' @export
 

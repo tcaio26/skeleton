@@ -1,10 +1,13 @@
 #' @title Interval checking
 #'
-#' @return checks if *x* is in \eqn{(a,b),`[`a,b),(a,b`]`,`[a,b]`}, depending on the choices for *inc.L* and *inc.U*
+#' @return checks if *x* is in the constructed interval.
 #'
 #' @param x x
-#' @param a,b lower and upper bounds of interval
-#' @param inc.L,inc.U Logical, should the interval be closed?
+#' @param a,b Lower and Upper bounds of interval
+#' @param inc.L,inc.U Booleans, for having closed lower and upper bounds:
+#'
+#'    - **inc.L** = TRUE \eqn{\Rightarrow \;[a,}
+#'    - **inc.U** = TRUE \eqn{\Rightarrow \;\;,b]}
 #'
 #' @export
 

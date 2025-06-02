@@ -4,11 +4,9 @@
 #' @param par name of the parameter to base cutting
 #' @param Nmin cutoff, see \link{generate_skeleton} for details
 #'
-#' @description Internal wrapper, should not be used
+#' @description Internal wrapper, should not be used.
 #'
 #' @keywords internal
-#'
-#' @noRd
 
 shouldyoucut = function(nodo, par, Nmin){
   if(isLeaf(nodo)) return(FALSE)

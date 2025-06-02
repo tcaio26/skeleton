@@ -2,16 +2,21 @@
 % Please edit documentation in R/vec_to_string.R
 \name{vec_to_string}
 \alias{vec_to_string}
-\title{Converting binary numeric vector to binary string}
+\title{Converting integer numeric vector to binary string.}
 \usage{
 vec_to_string(vector)
 }
 \arguments{
-\item{vector}{vector of positive integers, including 0. Other values won't work.}
+\item{vector}{Vector of positive integers, including 0. Other values won't work.}
 }
 \value{
-c(1,0,1) returns '101'
+String of numeric characters.
 }
 \description{
-Converting binary numeric vector to binary string
+Efficient function made for the skeleton package, might be useful for other cases.
+}
+\examples{
+vec_to_string(c(0,1,1,0))
+
+
 }

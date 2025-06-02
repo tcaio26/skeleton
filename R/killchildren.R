@@ -7,7 +7,7 @@
 #' @description
 #' Internal function to remove the children of a node. Doesn't return anything and shouldn't be used.
 #'
-#' @noRd
+#' @keywords internal
 killchildren = function(nodo){
   nodo$children = NULL
 }

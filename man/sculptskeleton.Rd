@@ -7,7 +7,7 @@
 sculptskeleton(t, Nmin, copy = F, print = F)
 }
 \arguments{
-\item{t}{tree.}
+\item{t}{Tree, generated from \link{startskel}.}
 
 \item{Nmin}{A transition will only be considered "prohibited" (with probability 0) if the empirical probability is 0 after Nmin or more occurences.}
 

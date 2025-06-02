@@ -2,16 +2,21 @@
 % Please edit documentation in R/string_to_vec.R
 \name{string_to_vec}
 \alias{string_to_vec}
-\title{Converting binary string to a numeric vector}
+\title{Converting integer string to a numeric vector.}
 \usage{
 string_to_vec(string)
 }
 \arguments{
-\item{string}{string comprised of positive integers, including 0. Other values won't work.}
+\item{string}{String comprised of positive integers, including 0. Other values won't work.}
 }
 \value{
-'101' returns c(1,0,1)
+Vector of integers.
 }
 \description{
-Converting binary string to a numeric vector
+Efficient function made for the skeleton package, might be useful for other cases.
+}
+\examples{
+string_to_vec('1001')
+
+
 }

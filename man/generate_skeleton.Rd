@@ -19,13 +19,13 @@ generate_skeleton(
 
 \item{Nmin}{A transition will only be considered "prohibited" (with probability 0) if the empirical probability is 0 after Nmin or more occurences.}
 
-\item{sensibility, alpha}{Alternatives to Nmin. If provided, \eqn{N_{min}=\log_{1-s}\alpha}where \eqn{s} is the sensibility. Both must be provided, see details for more.}
+\item{sensibility, alpha}{Alternatives to Nmin. If provided, \eqn{N_{min}=\log_{1-s}\alpha} where \eqn{s} is the sensibility. Both must be provided, see details for more.}
 
 \item{cleantree}{If set to TRUE (default), non-leaf nodes' probability, dom, and context are emptied.}
 
 \item{silent}{If TRUE, no progress messages are printed.}
 
-\item{treeAsDataFrame}{should the tree output be the result of ToDataFrameTree()? If false, returns a data.tree object. Defaults to TRUE}
+\item{treeAsDataFrame}{Should the tree output be the result of ToDataFrameTree()? If false, returns a data.tree object. Defaults to TRUE.}
 }
 \value{
 Skeleton of the VLMC adjusted to the sample provided, in two objects:
@@ -38,7 +38,7 @@ A \strong{Tree}, either in DataFrame format or tree object, with the columns/att
 \item \emph{dom} internal parameter to identify prohibited transitions. -1 if \eqn{p=0}, 1 if \eqn{p=1}, 0 if \eqn{p\in(0,1)}
 }
 
-A \strong{Skeleton Matrix}, determining which transitions have a postive probability. See \link{skel_matrix} for more details.
+A \eqn{2^k\times 2^k}\strong{Skeleton Matrix}, determining which transitions have a postive probability, where \eqn{k} is the order of the skeleton. See \link{skel_matrix} for more details.
 }
 \description{
 Generate skeleton tree
@@ -46,4 +46,7 @@ Generate skeleton tree
 \details{
 Since it is impossible to determine empirically that a probability is 0, a cutoff needs to be specified. Nmin is a simple but arbitrary way of doing it.
 Sensibility and alpha: Probabilities greater or equal to \emph{sensibility} will be detected, at a \emph{alpha} confidence level.
+Requirements: \eqn{\alpha, s \in (0,0.5]}
+
+Alternatively, \deqn{Y\sim Binom(N_{min},s)\Rightarrow P[Y=0]\leq \alpha}
 }

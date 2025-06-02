@@ -9,12 +9,16 @@ interval_check(x, a, b, inc.L = F, inc.U = F)
 \arguments{
 \item{x}{x}
 
-\item{a, b}{lower and upper bounds of interval}
+\item{a, b}{Lower and Upper bounds of interval}
 
-\item{inc.L, inc.U}{Logical, should the interval be closed?}
+\item{inc.L, inc.U}{Booleans, for having closed lower and upper bounds:
+\itemize{
+\item \strong{inc.L} = TRUE \eqn{\Rightarrow \;[a,}
+\item \strong{inc.U} = TRUE \eqn{\Rightarrow \;\;,b]}
+}}
 }
 \value{
-checks if \emph{x} is in \eqn{(a,b),`[`a,b),(a,b`]`,`[a,b]`}, depending on the choices for \emph{inc.L} and \emph{inc.U}
+checks if \emph{x} is in the constructed interval.
 }
 \description{
 Interval checking

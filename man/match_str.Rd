@@ -7,13 +7,23 @@
 match_str(str, p)
 }
 \arguments{
-\item{str}{string}
+\item{str}{String}
 
-\item{p}{pattern}
+\item{p}{Pattern. An empty pattern returns 1:nchar(str).}
 }
 \value{
-Integer positions: if \code{str[3:8]} = p, returns 9.
+Vector of integer positions. If the pattern ends on the last character of the string, it won't be counted.
 }
 \description{
 Finding positions after a pattern in a string.
+}
+\examples{
+string = 'banana'
+match_str(string, 'b')
+match_str(string, 'an')
+match_str(string, 'ana')
+match_str(string, 'nana')
+match_str(string, '')
+
+
 }
