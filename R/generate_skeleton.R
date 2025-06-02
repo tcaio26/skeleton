@@ -3,10 +3,19 @@
 #' @param sample Data. Either a string or a numeric vector. Should be longer than Nmin and only contain 0 and 1 symbols.
 #' @param Nmin A transition will only be considered "prohibited" (with probability 0) if the empirical probability is 0 after Nmin or more occurences.
 #' @param sensibility,alpha Alternatives to Nmin. If provided, \eqn{N_{min}=\log_{1-s}\alpha}where \eqn{s} is the sensibility. Both must be provided, see details for more.
-#' @param output "tree", "matrix", "both" or the first letter of each. Defaults to both.
+#' @param treeAsDataFrame should the tree output be the result of ToDataFrameTree()? If false, returns a data.tree object. Defaults to TRUE
 #' @param cleantree If set to TRUE (default), non-leaf nodes' probability, dom, and context are emptied.
+#' @param silent If TRUE, no progress messages are printed.
 #'
-#' @return Skeleton of the VLMC adjusted to the sample provided, either as the suffix tree (data.tree object) or the transition matrix.
+#' @return Skeleton of the VLMC adjusted to the sample provided, in two objects:
+#'
+#' A **Tree**, either in DataFrame format or tree object, with the columns/attributes:
+#'  - *context* context.
+#'  - *p* \eqn{p=P[X=1|X^{-1}_{-k}=w]}
+#'  - *n* number of occurences in the sample
+#'  - *dom* internal parameter to identify prohibited transitions. -1 if \eqn{p=0}, 1 if \eqn{p=1}, 0 if \eqn{p\in(0,1)}
+#'
+#' A **Skeleton Matrix**, determining which transitions have a postive probability. See \link{skel_matrix} for more details.
 #'
 #' @details
 #' Since it is impossible to determine empirically that a probability is 0, a cutoff needs to be specified. Nmin is a simple but arbitrary way of doing it.
@@ -14,7 +23,7 @@
 #'
 #' @export
 
-generate_skeleton = function(sample, Nmin=59, sensibility, alpha, output = 'both', cleantree=T){
+generate_skeleton = function(sample, Nmin=59, sensibility, alpha, asDataFrameTree = T, cleantree=T, silent = F){
   use_nmin = missing(sensibility)&missing(alpha)
   #checks
   if(!is.numeric(sample)&&!all(is.character(sample),length(sample)==1)){
@@ -43,11 +52,18 @@ generate_skeleton = function(sample, Nmin=59, sensibility, alpha, output = 'both
   if(!use_nmin) Nmin = ceiling(log(alpha, 1-sensibility))
   if(Nmin>=length(sample)) stop("Nmin too large for sample")
 
+  if(!silent) print("Everything ok, building tree...")
   if(is.numeric(sample)) sample = vec_to_string(sample)
 
   tree = startskel(sample, Nmin, prob = T)
+  if(!silent) print(paste0('Tree built with depth ', tree$height-1))
+  if(!silent) print('Pruning tree...')
 
   sculptskeleton(tree, Nmin, copy = F, print = F)
+  if(!silent) print(paste0("Tree pruned, skeleton has order ", tree$height-1))
+
+  matrix = skel_matrix(tree)
+  if(!silent) print("Matrix done")
 
   if(cleantree){
     nodes = Traverse(tree)
@@ -58,8 +74,9 @@ generate_skeleton = function(sample, Nmin=59, sensibility, alpha, output = 'both
       node$dom = ''
     })
   }
+  if(asDataFrameTree) tree = ToDataFrameTree(tree, 'context', 'p', 'dom', 'n')
 
   #output
 
-  return(tree)
+  return(list(skel = tree, matrix = matrix))
 }

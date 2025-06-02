@@ -9,8 +9,9 @@ generate_skeleton(
   Nmin = 59,
   sensibility,
   alpha,
-  output = "both",
-  cleantree = T
+  asDataFrameTree = T,
+  cleantree = T,
+  silent = F
 )
 }
 \arguments{
@@ -20,12 +21,24 @@ generate_skeleton(
 
 \item{sensibility, alpha}{Alternatives to Nmin. If provided, \eqn{N_{min}=\log_{1-s}\alpha}where \eqn{s} is the sensibility. Both must be provided, see details for more.}
 
-\item{output}{"tree", "matrix", "both" or the first letter of each. Defaults to both.}
-
 \item{cleantree}{If set to TRUE (default), non-leaf nodes' probability, dom, and context are emptied.}
+
+\item{silent}{If TRUE, no progress messages are printed.}
+
+\item{treeAsDataFrame}{should the tree output be the result of ToDataFrameTree()? If false, returns a data.tree object. Defaults to TRUE}
 }
 \value{
-Skeleton of the VLMC adjusted to the sample provided, either as the suffix tree (data.tree object) or the transition matrix.
+Skeleton of the VLMC adjusted to the sample provided, in two objects:
+
+A \strong{Tree}, either in DataFrame format or tree object, with the columns/attributes:
+\itemize{
+\item \emph{context} context.
+\item \emph{p} \eqn{p=P[X=1|X^{-1}_{-k}=w]}
+\item \emph{n} number of occurences in the sample
+\item \emph{dom} internal parameter to identify prohibited transitions. -1 if \eqn{p=0}, 1 if \eqn{p=1}, 0 if \eqn{p\in(0,1)}
+}
+
+A \strong{Skeleton Matrix}, determining which transitions have a postive probability. See \link{skel_matrix} for more details.
 }
 \description{
 Generate skeleton tree

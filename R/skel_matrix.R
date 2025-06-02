@@ -33,7 +33,7 @@ skel_matrix = function(tree){
     matrix_df = rbind(matrix_df, tibble(exp_context = contexts, context = replicate(length(fills),c)))
   }
 
-  matrix_df = left_join(matrix_df, df)
+  matrix_df = left_join(matrix_df, df, by = dplyr::join_by('context'))
   pasts = apply(expand.grid(replicate(max_char, c(0,1), simplify = FALSE)), 1, paste, collapse='')
   m = matrix(0, nrow = 2^max_char, ncol = 2^max_char, dimnames = list(pasts, sort(pasts))) #this combination of sorted and unsorted pasts creates "blocks" in the transitions that could have positive probabilities
   for(p in pasts){
