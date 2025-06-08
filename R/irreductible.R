@@ -17,7 +17,7 @@
 #' @export
 irreductible = function(M){
   stopifnot(ncol(M)==nrow(M))
-  if(any(apply(M, 2, function(J) sum(J)==0)) return(FALSE)
+  if(any(apply(M, 2, function(J) sum(J)==0))) return(FALSE)
   Q = M
   M_prod = M
   k = ncol(M)
@@ -31,5 +31,5 @@ irreductible = function(M){
     }
   }
   irreduc = all(Q>0)
-  else return(irreduc)
+  return(irreduc)
 }
