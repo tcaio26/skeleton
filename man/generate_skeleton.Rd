@@ -6,22 +6,29 @@
 \usage{
 generate_skeleton(
   sample,
-  Nmin = 59,
-  sensibility,
-  alpha,
+  alphabet = sort(unique(sample)),
+  Nmin,
+  sensibility = 0.05,
+  alpha = 0.05,
+  sep = "-",
+  contextsep = sep,
   asDataFrameTree = T,
   cleantree = T,
   silent = F
 )
 }
 \arguments{
-\item{sample}{Data. Either a string or a numeric vector. Should be longer than Nmin and only contain 0 and 1 symbols.}
+\item{sample}{Data in the form of an atomic vector. Can only contain symbols present in \emph{alphabet}, and needs to be longer than \strong{Nmin}.}
+
+\item{alphabet}{Set \eqn{A} of possible symbols for the VLMC. Defaults to sort(unique(sample)).}
 
 \item{Nmin}{A transition will only be considered "prohibited" (with probability 0) if the empirical probability is 0 after Nmin or more occurences.}
 
-\item{sensibility, alpha}{Alternatives to Nmin. If provided, \eqn{N_{min}=\log_{1-s}\alpha} where \eqn{s} is the sensibility. Both must be provided, see details for more.}
+\item{sensibility, alpha}{Alternatives to Nmin. If provided, \eqn{N_{min}= \lceil\log_{1-s}\alpha - \log_{1-s}|A|\rceil} where \eqn{s} is the sensibility. Both must be provided, see details for more.}
 
-\item{cleantree}{If set to TRUE (default), non-leaf nodes' probability, dom, and context are emptied.}
+\item{sep}{Symbol separator for the node names.}
+
+\item{contextsep}{Symbol separator for the node contexts.}
 
 \item{silent}{If TRUE, no progress messages are printed.}
 
@@ -30,15 +37,14 @@ generate_skeleton(
 \value{
 Skeleton of the VLMC adjusted to the sample provided, in two objects:
 
-A \strong{Tree}, either in DataFrame format or tree object, with the columns/attributes:
+A \strong{Tree}, either in DataFrame format or tree object, with the columns/attributes for each node/context \eqn{w}:
 \itemize{
 \item \emph{context} context.
-\item \emph{p} \eqn{p=P[X=1|X^{-1}_{-k}=w]}
-\item \emph{n} number of occurences in the sample
-\item \emph{dom} internal parameter to identify prohibited transitions. -1 if \eqn{p=0}, 1 if \eqn{p=1}, 0 if \eqn{p\in(0,1)}
+\item \emph{n} number of occurences in the sample. (Needs to have a symbols after the context, if the sample ends in w that ocurrence won't be counted.)
+\item \emph{transitions} vector of transitions, in TRUE (for possible) or FALSE format.
 }
 
-A \eqn{2^k\times 2^k}\strong{Skeleton Matrix}, determining which transitions have a postive probability, where \eqn{k} is the order of the skeleton. See \link{skel_matrix} for more details.
+A \eqn{|A|^k\times |A|^k}\strong{Skeleton Matrix}, determining which transitions have a postive probability, where \eqn{k} is the order of the skeleton. See \link{skel_matrix} for more details.
 }
 \description{
 Generate skeleton tree
@@ -46,7 +52,7 @@ Generate skeleton tree
 \details{
 Since it is impossible to determine empirically that a probability is 0, a cutoff needs to be specified. Nmin is a simple but arbitrary way of doing it.
 Sensibility and alpha: Probabilities greater or equal to \emph{sensibility} will be detected, at a \emph{alpha} confidence level.
-Requirements: \eqn{\alpha, s \in (0,0.5]}
+Requirements: \eqn{\alpha\in(0,0.5),\;\;s<1/|A|}
 
 Alternatively, \deqn{Y\sim Binom(N_{min},s)\Rightarrow P[Y=0]\leq \alpha}
 }

@@ -4,14 +4,18 @@
 \alias{startskel}
 \title{Initializes the tree}
 \usage{
-startskel(sample_txt, Nmin, prob = F)
+startskel(sample, alphabet, Nmin, sep = "-", contextsep = sep)
 }
 \arguments{
-\item{sample_txt}{Data for the tree, in the format of a single string}
+\item{sample}{Data in the form of an atomic vector. Can only contain symbols present in \emph{alphabet}, and needs to be longer than \strong{Nmin}.}
 
-\item{Nmin}{Cutoff for node generation, passes onto \link{genskel}. See \link{generate_skeleton.R} for more details.}
+\item{alphabet}{Set \eqn{A} of possible symbols for the VLMC. Defaults to sort(unique(sample)).}
 
-\item{prob}{Logical, should suffix probabilities be computed? Defaults to false.}
+\item{Nmin}{A transition will only be considered "prohibited" (with probability 0) if the empirical probability is 0 after Nmin or more occurences.}
+
+\item{sep}{Symbol separator for the node names.}
+
+\item{contextsep}{Symbol separator for the node contexts.}
 }
 \value{
 Uncut suffix tree generated from the data as a \emph{data.tree} object.

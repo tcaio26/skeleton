@@ -4,14 +4,12 @@
 \alias{shouldyoucut}
 \title{Wrapper for pruning}
 \usage{
-shouldyoucut(nodo, par, Nmin)
+shouldyoucut(parent, Nmin)
 }
 \arguments{
-\item{nodo}{node}
+\item{parent}{Node to be evaluated.}
 
-\item{par}{name of the parameter to base cutting}
-
-\item{Nmin}{cutoff, see \link{generate_skeleton} for details}
+\item{Nmin}{Cutoff, see \link{generate_skeleton} for details.}
 }
 \description{
 Internal wrapper, should not be used.

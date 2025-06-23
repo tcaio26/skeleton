@@ -1,8 +1,7 @@
 #' @title Initializes the tree
 #'
-#' @param sample_txt Data for the tree, in the format of a single string
-#' @param Nmin Cutoff for node generation, passes onto \link{genskel}. See \link{generate_skeleton.R} for more details.
-#' @param prob Logical, should suffix probabilities be computed? Defaults to false.
+#' @inheritParams generate_skeleton
+#'
 #'
 #' @return Uncut suffix tree generated from the data as a *data.tree* object.
 #'
@@ -17,15 +16,23 @@
 #'
 #' @export
 
-startskel = function(sample_txt, Nmin, prob = F){
-  sample_vec = string_to_vec(sample_txt)
-  raiz = Node$new("r")
-  raiz$index = 1:length(sample_vec)
-  raiz$n = length(sample_vec)
-  raiz$context = ''
-  raiz$dom = 0
-  if(prob) raiz$p = sum(sample_vec)/raiz$n
+startskel = function(sample, alphabet, Nmin, sep = '-', contextsep = sep){
+  root = Node$new('r')
+  root$context = ''
+  root$index = 1:length(sample)
+  root$counts = table(factor(sample[root$index], levels = alphabet))
+  root$n = length(sample)
 
-  genskel(raiz, sample_vec, sample_txt, Nmin, prob = prob)
-  return(raiz)
+  genskel(root, 1, sample, alphabet, Nmin, sep)
+
+  lapply(Traverse(root), function(node){
+    transitions = (node$counts>0)
+    if(sum(transitions)==0){
+      transitions = c(T,T,T,T)
+      names(transitions) = alphabet
+    } #não assumimos nada para nodos não observados.
+    node$transitions = transitions
+  })
+
+  return(root)
 }

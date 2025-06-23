@@ -2,22 +2,28 @@
 % Please edit documentation in R/genskel.R
 \name{genskel}
 \alias{genskel}
-\title{Tree generation}
+\title{Recursive Tree Generation}
 \usage{
-genskel(node, sample_vec, sample_txt, Nmin, prob = F)
+genskel(parent, level, sample, alphabet, Nmin, sep = "-", contextsep = sep)
 }
 \arguments{
-\item{node}{Node to generate from.}
+\item{parent}{Node to generate from.}
 
-\item{sample_vec, sample_txt}{Different formats for the sample.}
+\item{level}{Level of the node in the tree, number of symbols in its context.}
 
-\item{Nmin}{Cutoff for node generation, passes onto \link{genskel}. See \link{generate_skeleton.R} for more details.}
+\item{sample}{Data in the form of an atomic vector. Can only contain symbols present in \emph{alphabet}, and needs to be longer than \strong{Nmin}.}
 
-\item{prob}{Logical, should suffix probabilities be computed? Defaults to false.}
+\item{alphabet}{Set \eqn{A} of possible symbols for the VLMC. Defaults to sort(unique(sample)).}
+
+\item{Nmin}{A transition will only be considered "prohibited" (with probability 0) if the empirical probability is 0 after Nmin or more occurences.}
+
+\item{sep}{Symbol separator for the node names.}
+
+\item{contextsep}{Symbol separator for the node contexts.}
 }
 \description{
-Internal recursive function to generate two nodes with context \strong{0w} and \strong{1w} from a node with context \strong{w}, as long as
-\eqn{n > N_{min}} and the empirical probability of 1 is not 0 or 1.
+Internal recursive function to generate nodes with context \strong{uw} \eqn{\forall u \in A} from a node with context \strong{w}, as long as
+\eqn{n > N_{min}} and two or more transitions are possible.
 
 Should not be used, only made for \link{startskel}.
 }
