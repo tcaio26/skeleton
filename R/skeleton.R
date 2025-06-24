@@ -13,26 +13,29 @@
 #'
 #' A **Tree**, either in DataFrame format or tree object, with the columns/attributes for each node/context \eqn{w}:
 #'  - *context* context.
-#'  - *n* number of occurences in the sample. (Needs to have a symbols after the context, if the sample ends in w that ocurrence won't be counted.)
+#'  - *n* number of occurences in the sample. (Needs to have a symbol after the context, if the sample ends in w that ocurrence won't be counted.)
 #'  - *transitions* vector of transitions, in TRUE (for possible) or FALSE format.
 #'
 #' A \eqn{|A|^k} **Transition list**, determining which next symbols have a positive transition probability for each past of order \eqn{k}.
 #'
-#' A \eqn{|A|^k\times |A|^k}**Skeleton Matrix**, determining which transitions have a postive probability, where \eqn{k} is the order of the skeleton. See details for more.
+#' A \eqn{|A|^k\times |A|^k} **Skeleton Matrix**, determining which transitions have a postive probability, where \eqn{k} is the order of the skeleton. See details for more.
 #'
 #' @details
 #' Since it is impossible to determine empirically that a probability is 0, a cutoff needs to be specified. Nmin is a simple but arbitrary way of doing it.
 #' Sensibility and alpha: Probabilities greater or equal to *sensibility* will be detected, at a *alpha* confidence level.
+#'
 #' Requirements: \eqn{\alpha\in(0,0.5),\;\;s\in(0,1/|A|)}. Recommended: \eqn{s<0.01,\;s<<1/|A|, \alpha<0.05} due do the large ammount of nodes produced.
 #'
 #' Alternatively, \deqn{Y\sim Binom(N_{min},s)\Rightarrow P[Y=0]\leq \alpha}
 #'
+#'
+#'
 #' Matrix \eqn{M}:
 #' The skeleton matrix has all possible k-sized sequences of symbols of \eqn{A}, where \eqn{k} is the order of the skeleton, as its rownames and colnames.
-#' For every past (row) \eqn{w}, the entry in column (future) \eqn{w_{-k+1}^{-1}u} (the last \eqn{k-1} symbols of \eqn{w} followed by \eqn{a}) will be 1 if, and only if,
+#' For every past (row) \eqn{w}, the entry in column (future) \eqn{w_{-k+1}^{-1}u} (the last \eqn{k-1} symbols of \eqn{w} followed by \eqn{u}) will be 1 if, and only if,
 #' a transition from \eqn{w} to \eqn{w_{-k+1}^{-1}u} has probability greater than 0. Alternatively, let \eqn{A^k=\{w^{(i)}, i\in[1,|A|^k]\}} be the set of all sequences of \eqn{k} symbols of \eqn{A}, then
 #' \deqn{w^{(j)}=w^{(i)-1}_{-k+1}u \Rightarrow M_{ij}=I\{P[u|w]>0\}}
-#' For more information, see [article in progress].
+#' For more information, see \[article in progress\].
 #'
 #' @export
 

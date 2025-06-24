@@ -9,7 +9,7 @@ Authors@R: c(
       role = c("aut", "cre")
     )
   )
-Description: [adding later]
+Description: Functions to extract and test the irreductibility/closedness of the skeleton of a VLMC. For more informations, see \[article in progress\]
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
@@ -20,3 +20,7 @@ Imports:
   dplyr
 RoxygenNote: 7.3.2
 Roxygen: list(markdown=TRUE)
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

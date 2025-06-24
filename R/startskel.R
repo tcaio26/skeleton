@@ -10,8 +10,9 @@
 #' Does not prune the tree at all. For manual usage, do \link{startskel} -> \link{sculptskeleton} -> \link{expand.transitions} -> \link{trans.to.matrix}.
 #'
 #' @examples
-#' (t = startskel('01000110', Nmin = 1, TRUE))
-#' ToDataFrameTree(t, 'context', 'p', 'dom', 'n')
+#' library(skeleton)
+#' (t = startskel(c('0','1','0','0','0','1','1','0'), c('0','1'), Nmin = 1))
+#' ToDataFrameTree(t, 'context', 'n', 'counts')
 #'
 #'
 #' @export

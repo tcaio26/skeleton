@@ -10,7 +10,7 @@
 #' \deqn{\forall i,j \in [1,|A|^k], \exists n \in ℕ | M^n[i,j]>0}
 #' In practice this can be tested with \eqn{n = 1,...,|A|^k-1}.\deqn{Q[i,j] = \mathcal{I}\{(\sum_{l=1}^{|A|^k}M^l)[i,j]>0\}}
 #'
-#' \eqn{M} is irreductible \eqn{\LeftRightArrow Q[i,j]>0\forall (i,j)\in [1,|A|^k]\times[1,|A|^k]}.
+#' \eqn{M} is irreductible \eqn{\Leftrightarrow Q[i,j]>0\forall (i,j)\in [1,|A|^k]\times[1,|A|^k]}.
 #'
 #' If \eqn{M} has any null columns, it won't be irreductible.
 #'

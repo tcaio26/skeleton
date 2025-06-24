@@ -24,6 +24,7 @@ checks if \emph{x} is in the constructed interval.
 Open and closed interval checking
 }
 \examples{
+library(skeleton)
 interval_check(2,2,5)
 interval_check(3,3,6,inc.L=T)
 

@@ -5,8 +5,10 @@
 #'
 #' @inheritParams skeleton
 #' @param root Tree, generated from \link{startskel}.
-#' @param copy Set to TRUE to preserve the original tree. FALSE will alter the original tree and not return anything, the default.
+#' @param copy Set to TRUE to preserve the original tree and return a pruned copy.
 #' @param declare If TRUE prints how many nodes are cut by level of the tree.
+#'
+#' @returns If **copy = TRUE**, returns the pruned skeleton. Otherwise, alters the original object with no output.
 #'
 #' @details
 #' For a node w, whose children are leaves, removes the children if:
