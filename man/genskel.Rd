@@ -13,13 +13,11 @@ genskel(parent, level, sample, alphabet, Nmin, sep = "-", contextsep = sep)
 
 \item{sample}{Data in the form of an atomic vector. Can only contain symbols present in \emph{alphabet}, and needs to be longer than \strong{Nmin}.}
 
-\item{alphabet}{Set \eqn{A} of possible symbols for the VLMC. Defaults to sort(unique(sample)).}
+\item{alphabet}{Set \eqn{A=\{a_1,a_2,...,a_{|A|}\}} of possible symbols for the VLMC. Defaults to sort(unique(sample)).}
 
 \item{Nmin}{A transition will only be considered "prohibited" (with probability 0) if the empirical probability is 0 after Nmin or more occurences.}
 
-\item{sep}{Symbol separator for the node names.}
-
-\item{contextsep}{Symbol separator for the node contexts.}
+\item{sep, contextsep}{Symbol separator for the node names. A separate symbol can be specified for the contexts, if wanted. Both symbols cannot be present in \eqn{A}.}
 }
 \description{
 Internal recursive function to generate nodes with context \emph{uw} \eqn{\forall u \in A} from a node with context \emph{w}, as long as

@@ -13,7 +13,7 @@
 #'
 #' @export
 expand.transitions = function(skel, A, sep){
-  contexts = Traverse(skeleton, filterFun = isLeaf)
+  contexts = Traverse(skel, filterFun = isLeaf)
   d = max(vapply(contexts, function(leaf) length(strsplit(leaf$context, sep)[[1]]), FUN.VALUE = integer(1)))
   transitions = lapply(contexts, function(leaf) leaf$transitions)
   names(transitions) = vapply(contexts, function(leaf) leaf$context, FUN.VALUE = character(1))
@@ -21,7 +21,7 @@ expand.transitions = function(skel, A, sep){
   full_transitions = probabilities = replicate(length(A)^d, rep(0,length(A)), simplify = FALSE)
   for(w in 1:length(pasts)){
     full_transitions[[w]]=
-      transitions[[getMaxContext(names(transitions),paste0(pasts[w],sep))]]
+      transitions[[get.max.context(names(transitions),paste0(pasts[w],sep))]]
   }
   names(full_transitions)=pasts
   return(full_transitions)

@@ -8,34 +8,34 @@ skeleton(
   sample,
   alphabet = sort(unique(sample)),
   Nmin,
-  sensibility = 0.05,
+  sensibility = min(0.01, 1/length(alphabet)),
   alpha = 0.05,
   sep = "-",
   contextsep = sep,
-  asDataFrameTree = T,
-  cleantree = T,
-  silent = F
+  silent = F,
+  matrix.only = F,
+  irreductible.only = F
 )
 }
 \arguments{
 \item{sample}{Data in the form of an atomic vector. Can only contain symbols present in \emph{alphabet}, and needs to be longer than \strong{Nmin}.}
 
-\item{alphabet}{Set \eqn{A} of possible symbols for the VLMC. Defaults to sort(unique(sample)).}
+\item{alphabet}{Set \eqn{A=\{a_1,a_2,...,a_{|A|}\}} of possible symbols for the VLMC. Defaults to sort(unique(sample)).}
 
 \item{Nmin}{A transition will only be considered "prohibited" (with probability 0) if the empirical probability is 0 after Nmin or more occurences.}
 
 \item{sensibility, alpha}{Alternatives to Nmin. If provided, \eqn{N_{min}= \lceil\log_{1-s}\alpha - \log_{1-s}|A|\rceil} where \eqn{s} is the sensibility. Both must be provided, see details for more.}
 
-\item{sep}{Symbol separator for the node names.}
-
-\item{contextsep}{Symbol separator for the node contexts.}
+\item{sep, contextsep}{Symbol separator for the node names. A separate symbol can be specified for the contexts, if wanted. Both symbols cannot be present in \eqn{A}.}
 
 \item{silent}{If TRUE, no progress messages are printed.}
 
-\item{treeAsDataFrame}{Should the tree output be the result of ToDataFrameTree()? If false, returns a data.tree object. Defaults to TRUE.}
+\item{matrix.only}{If TRUE, only the transition matrix \eqn{M} is returned. Defaults to false.}
+
+\item{irreductible}{If TRUE, only the irreductibility is returned. Defaults to false.}
 }
 \value{
-Skeleton of the VLMC adjusted to the sample provided, in two objects:
+Skeleton of the VLMC adjusted to the sample provided, in three objects:
 
 A \strong{Tree}, either in DataFrame format or tree object, with the columns/attributes for each node/context \eqn{w}:
 \itemize{
@@ -44,7 +44,9 @@ A \strong{Tree}, either in DataFrame format or tree object, with the columns/att
 \item \emph{transitions} vector of transitions, in TRUE (for possible) or FALSE format.
 }
 
-A \eqn{|A|^k\times |A|^k}\strong{Skeleton Matrix}, determining which transitions have a postive probability, where \eqn{k} is the order of the skeleton. \link{ADICIONAR DESCRIÇÃO}
+A \eqn{|A|^k} \strong{Transition list}, determining which next symbols have a positive transition probability for each past of order \eqn{k}.
+
+A \eqn{|A|^k\times |A|^k}\strong{Skeleton Matrix}, determining which transitions have a postive probability, where \eqn{k} is the order of the skeleton. See details for more.
 }
 \description{
 Generate skeleton tree
@@ -52,7 +54,14 @@ Generate skeleton tree
 \details{
 Since it is impossible to determine empirically that a probability is 0, a cutoff needs to be specified. Nmin is a simple but arbitrary way of doing it.
 Sensibility and alpha: Probabilities greater or equal to \emph{sensibility} will be detected, at a \emph{alpha} confidence level.
-Requirements: \eqn{\alpha\in(0,0.5),\;\;s<1/|A|}
+Requirements: \eqn{\alpha\in(0,0.5),\;\;s\in(0,1/|A|)}. Recommended: \eqn{s<0.01,\;s<<1/|A|, \alpha<0.05} due do the large ammount of nodes produced.
 
 Alternatively, \deqn{Y\sim Binom(N_{min},s)\Rightarrow P[Y=0]\leq \alpha}
+
+Matrix \eqn{M}:
+The skeleton matrix has all possible k-sized sequences of symbols of \eqn{A}, where \eqn{k} is the order of the skeleton, as its rownames and colnames.
+For every past (row) \eqn{w}, the entry in column (future) \eqn{w_{-k+1}^{-1}u} (the last \eqn{k-1} symbols of \eqn{w} followed by \eqn{a}) will be 1 if, and only if,
+a transition from \eqn{w} to \eqn{w_{-k+1}^{-1}u} has probability greater than 0. Alternatively, let \eqn{A^k=\{w^{(i)}, i\in[1,|A|^k]\}} be the set of all sequences of \eqn{k} symbols of \eqn{A}, then
+\deqn{w^{(j)}=w^{(i)-1}_{-k+1}u \Rightarrow M_{ij}=I\{P[u|w]>0\}}
+For more information, see \link{article in progress}.
 }

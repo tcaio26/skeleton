@@ -25,7 +25,7 @@ sculptskeleton = function(root, Nmin, copy=F, declare = F){
   d = skel$height
   for(l in (d-1):1){
     selected = nodes[levels==l]
-    to_prune = selected[sapply(selected, function(node) shouldyoucut(node, Nmin))]
+    to_prune = selected[sapply(selected, function(node) should.you.cut(node, Nmin))]
     if(declare) print(paste0("Level ", l, ', ',length(to_prune),' nodes to prune'))
     lapply(to_prune, function(parent) parent$children = NULL)
   }
