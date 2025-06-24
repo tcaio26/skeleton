@@ -16,7 +16,7 @@
 #'  - *n* number of occurences in the sample. (Needs to have a symbols after the context, if the sample ends in w that ocurrence won't be counted.)
 #'  - *transitions* vector of transitions, in TRUE (for possible) or FALSE format.
 #'
-#' A \eqn{|A|^k\times |A|^k}**Skeleton Matrix**, determining which transitions have a postive probability, where \eqn{k} is the order of the skeleton. See \link{skel_matrix} for more details.
+#' A \eqn{|A|^k\times |A|^k}**Skeleton Matrix**, determining which transitions have a postive probability, where \eqn{k} is the order of the skeleton. [ADICIONAR DESCRIÇÃO]
 #'
 #' @details
 #' Since it is impossible to determine empirically that a probability is 0, a cutoff needs to be specified. Nmin is a simple but arbitrary way of doing it.
@@ -27,7 +27,7 @@
 #'
 #' @export
 
-generate_skeleton = function(sample, alphabet = sort(unique(sample)), Nmin, sensibility=0.05, alpha=0.05,
+skeleton = function(sample, alphabet = sort(unique(sample)), Nmin, sensibility=0.05, alpha=0.05,
                              sep = '-', contextsep = sep,
                              asDataFrameTree = T, cleantree=T, silent = F){
   #checks

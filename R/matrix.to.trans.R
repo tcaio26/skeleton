@@ -1,13 +1,17 @@
 #' @title Converting a matrix of transitions to a list
 #'
-#' @param M Matrix of transitions, with sequences of elements of *A* of length k (order of the skeleton) for its rownames and colnames, where \deqn{M[w,w^{-1}_{-k+1}u]=I{P[u|w]>0}}
+#' @description
+#' Does the opposite of \link{trans.to.matrix}.
+#'
+#'
+#' @param M Matrix of transitions, with sequences of elements of *A* of length k (order of the skeleton) for its rownames and colnames, where \deqn{M[w,w^{-1}_{-k+1}u]=I\{P[u|w]>0\}}
 #' @param A Alphabet of the VLMC.
 #' @param sep Character separator used in the generation of the skeleton.
 #'
-#' @returns A list of transitions such as an input for \link{transToMatrix}.
+#' @returns A list of named transition vectors.
 #'
 #' @export
-matrixToTrans = function(M, A, sep){
+matrix.to.trans = function(M, A, sep){
   a=length(A)
   d=length(strsplit(rownames(M)[1], sep)[[1]])
   probabilities = replicate(a^d, rep(0,a), simplify = FALSE)

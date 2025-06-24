@@ -22,7 +22,7 @@ genskel(parent, level, sample, alphabet, Nmin, sep = "-", contextsep = sep)
 \item{contextsep}{Symbol separator for the node contexts.}
 }
 \description{
-Internal recursive function to generate nodes with context \strong{uw} \eqn{\forall u \in A} from a node with context \strong{w}, as long as
+Internal recursive function to generate nodes with context \emph{uw} \eqn{\forall u \in A} from a node with context \emph{w}, as long as
 \eqn{n > N_{min}} and two or more transitions are possible.
 
 Should not be used, only made for \link{startskel}.

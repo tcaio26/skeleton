@@ -1,13 +1,13 @@
 #' @title Initializes the tree
 #'
-#' @inheritParams generate_skeleton
+#' @inheritParams skeleton
 #'
 #'
 #' @return Uncut suffix tree generated from the data as a *data.tree* object.
 #'
 #' @description
-#' Function to initialize a probability tree. Is intended for \link{generate_skeleton}, but can be used on its own to check the data.
-#' Does not prune the tree at all. For manual usage, do \link{startskel} -> \link{sculptskel} -> \link{skel_matrix}.
+#' Function to initialize a probability tree. Is intended for \link{skeleton}, but can be used on its own to check the data.
+#' Does not prune the tree at all. For manual usage, do \link{startskel} -> \link{sculptskeleton} -> \link{expand.transitions} -> \link{trans.to.matrix}.
 #'
 #' @examples
 #' (t = startskel('01000110', Nmin = 1, TRUE))

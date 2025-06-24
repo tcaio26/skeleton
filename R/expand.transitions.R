@@ -1,16 +1,18 @@
 #' @title Extracts transitions from a skeleton and expands them to order k.
 #'
-#' @param skeleton A result of \link{sculptskeleton}.
-#' @param A Alphabet.
+#' @param skel A skeleton tree, such as the result of \link{sculptskeleton}.
+#' @param A Alphabet of possible symbols.
 #' @param sep Character separator for the skeleton contexts.
 #'
 #' @description
-#' Extracts transitions from a skeleton object and expands contexts of order less than k to all possible pasts of order k.
+#' Extracts transitions from a skeleton object and expands contexts of order less than k to all possible pasts of order k. Internal use.
 #'
 #' @returns A list, where each element corresponds to the transition possibilities from past w (name) to each symbol u in A.
 #'
+#' @keywords internal
+#'
 #' @export
-expandTransitions = function(skeleton, A, sep){
+expand.transitions = function(skel, A, sep){
   contexts = Traverse(skeleton, filterFun = isLeaf)
   d = max(vapply(contexts, function(leaf) length(strsplit(leaf$context, sep)[[1]]), FUN.VALUE = integer(1)))
   transitions = lapply(contexts, function(leaf) leaf$transitions)

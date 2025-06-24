@@ -5,7 +5,7 @@
 #' @param level Level of the node in the tree, number of symbols in its context.
 #'
 #' @description
-#' Internal recursive function to generate nodes with context **uw** \eqn{\forall u \in A} from a node with context **w**, as long as
+#' Internal recursive function to generate nodes with context *uw* \eqn{\forall u \in A} from a node with context *w*, as long as
 #' \eqn{n > N_{min}} and two or more transitions are possible.
 #'
 #' Should not be used, only made for \link{startskel}.
